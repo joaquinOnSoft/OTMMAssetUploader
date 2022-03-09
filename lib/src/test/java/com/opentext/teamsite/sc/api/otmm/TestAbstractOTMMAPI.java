@@ -7,18 +7,17 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.BeforeAll;
 
+import com.opentext.teamsite.sc.api.otmm.util.FileUtil;
+
 public class TestAbstractOTMMAPI{
 	
 	protected static Properties prop = null;
 	
 	@BeforeAll
 	static void setupBeforeAll() {		
-		try {
-			String path= System.getProperty("user.dir");
-			String fullPath = path + System.getProperty("file.separator") +"otmm-api.properties";
-	        			
+		try {			
 	        prop = new Properties();
-	        prop.load(new FileInputStream(fullPath));	        
+	        prop.load(FileUtil.getStreamFromResources("otmm-api.propertie"));	        
 		} 
 		catch (FileNotFoundException e) {
 			System.err.println("Properties file not found");
