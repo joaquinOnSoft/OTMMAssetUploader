@@ -1,6 +1,5 @@
 package com.opentext.teamsite.sc.api.otmm;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
@@ -17,7 +16,7 @@ public class TestAbstractOTMMAPI{
 	static void setupBeforeAll() {		
 		try {			
 	        prop = new Properties();
-	        prop.load(FileUtil.getStreamFromResources("otmm-api.propertie"));	        
+	        prop.load(FileUtil.getStreamFromResources("otmm-api.properties"));	        
 		} 
 		catch (FileNotFoundException e) {
 			System.err.println("Properties file not found");
