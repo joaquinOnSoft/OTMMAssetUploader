@@ -5,25 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
-import com.opentext.otmm.sc.api.beans.OTMMCollection;
 
-class TestOTMMAPIWrapper extends TestAbstractOTMMAPI {
+class TestOTMMAPIFolders extends TestAbstractOTMMAPI {
 
 	//private static final String FOLDER_ID_MY_FOLDERS = "1001N";
 	private static final String FOLDER_ID_PUBLIC_FOLDERS = "ARTESIA.PUBLIC.TREEN";
 	
-	private static OTMMAPIWrapper wrapper = null;
+	private static OTMMAPIFolders wrapper = null;
 	private static String sessionId = null;
 	
 	@BeforeEach
 	void setupBeforeEach() {				
-		wrapper = new OTMMAPIWrapper(prop.getProperty("url"), prop.getProperty("version", "6"));	
+		wrapper = new OTMMAPIFolders(prop.getProperty("url"), prop.getProperty("version", "6"));	
 		
 		sessionId = wrapper.createSession(prop.getProperty("user"), prop.getProperty("password"));		
 	}
@@ -43,6 +41,13 @@ class TestOTMMAPIWrapper extends TestAbstractOTMMAPI {
 		assertTrue(intSessionId > 0);
 	}
 	
+	@Test
+	void getURLFromMethod() {
+		String url = wrapper.getURLFromMethod("sessions");
+		assertNotNull(url);
+		assertTrue(url.endsWith("/otmmapi/v6/sessions"));
+	}	
+	
 	@Test 
 	void retrieveAllRootFolders(){
 		List<OTMMAsset> assets = wrapper.retrieveAllRootFolders(sessionId);
@@ -55,26 +60,5 @@ class TestOTMMAPIWrapper extends TestAbstractOTMMAPI {
 		List<OTMMAsset> assets = wrapper.retrieveAllChildrenOfAFolder(sessionId, FOLDER_ID_PUBLIC_FOLDERS);
 		assertNotNull(assets);
 		assertTrue(assets.size() > 0);				
-	}
-	
-	@Test
-	void getListOfCollectionForCurrentUser() {
-		Map<String, OTMMCollection> collections = wrapper.getListOfCollectionForCurrentUser(sessionId);
-		assertNotNull(collections);
-		assertTrue(collections.size() > 0);		
-	}
-
-	@Test
-	void retrieveAllAssetsOfACollection() {
-		List<OTMMAsset> assets = wrapper.retrieveAllAssetsOfACollection(sessionId, "37565d42b090cae4774605bd1c9dd85c75063ad5");
-		assertNotNull(assets);
-		assertTrue(assets.size() > 0);
-	}	
-	
-	@Test
-	void getURLFromMethod() {
-		String url = wrapper.getURLFromMethod("sessions");
-		assertNotNull(url);
-		assertTrue(url.endsWith("/otmmapi/v6/sessions"));
 	}
 }

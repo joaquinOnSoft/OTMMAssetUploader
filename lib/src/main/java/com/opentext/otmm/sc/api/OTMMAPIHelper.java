@@ -47,7 +47,7 @@ public class OTMMAPIHelper {
 	public List<OTMMAsset> retrieveAllAssetsOfACollectionByName(String collectionName){
 		List<OTMMAsset> assets = null;
 		
-		OTMMAPIWrapper wrapper = new OTMMAPIWrapper(urlBase, version);
+		OTMMAPICollections wrapper = new OTMMAPICollections(urlBase, version);
 		
 		String sessionId = wrapper.createSession(username, password);
 		if(sessionId != null) {
@@ -95,7 +95,7 @@ public class OTMMAPIHelper {
 			if(folders != null && folders.length > 0) {
 				int nFolders = folders.length;
 				
-				OTMMAPIWrapper wrapper = new OTMMAPIWrapper(urlBase, version);
+				OTMMAPIFolders wrapper = new OTMMAPIFolders(urlBase, version);
 				
 				String sessionId = wrapper.createSession(username, password);
 				
