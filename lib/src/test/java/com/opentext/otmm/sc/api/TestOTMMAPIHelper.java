@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm;
+package com.opentext.otmm.sc.api;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-
-
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.OTMMAPIHelper;
+import com.opentext.otmm.sc.api.beans.OTMMAsset;
 
 class TestOTMMAPIHelper extends TestAbstractOTMMAPI {
 	

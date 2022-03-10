@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm;
+package com.opentext.otmm.sc.api;
 
 import java.util.List;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMAsset;
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMCollection;
+import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMCollection;
 
 public class OTMMAPIHelper {
 	

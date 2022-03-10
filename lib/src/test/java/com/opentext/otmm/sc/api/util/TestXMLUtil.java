@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm.util;
+package com.opentext.otmm.sc.api.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,8 +10,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMAsset;
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMCollection;
+import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMCollection;
+import com.opentext.otmm.sc.api.util.XMLUtil;
 
 public class TestXMLUtil {
 	private static final String XML_OTMM_COLLECTION = 

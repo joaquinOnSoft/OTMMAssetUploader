@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm;
+package com.opentext.otmm.sc.api;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.BeforeAll;
 
-import com.opentext.teamsite.sc.api.otmm.util.FileUtil;
+import com.opentext.otmm.sc.api.util.FileUtil;
 
 public class TestAbstractOTMMAPI{
 	

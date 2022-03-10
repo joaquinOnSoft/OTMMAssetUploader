@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm;
+package com.opentext.otmm.sc.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMAsset;
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMCollection;
+import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMCollection;
 
 public class OTMMAPIWrapper {
 	private static int DEFAULT_VERSION_NUMBER = 6;

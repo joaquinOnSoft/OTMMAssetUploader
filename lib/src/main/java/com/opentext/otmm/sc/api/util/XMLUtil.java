@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm.util;
+package com.opentext.otmm.sc.api.util;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMAsset;
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMCollection;
+import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMCollection;
 
 public class XMLUtil {
 	static final Logger logger = LogManager.getLogger(XMLUtil.class);

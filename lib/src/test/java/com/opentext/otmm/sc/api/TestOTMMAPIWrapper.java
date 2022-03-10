@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm;
+package com.opentext.otmm.sc.api;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,8 +10,9 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMAsset;
-import com.opentext.teamsite.sc.api.otmm.beans.OTMMCollection;
+import com.opentext.otmm.sc.api.OTMMAPIWrapper;
+import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMCollection;
 
 class TestOTMMAPIWrapper extends TestAbstractOTMMAPI {
 

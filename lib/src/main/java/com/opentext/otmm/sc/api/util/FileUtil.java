@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm.util;
+package com.opentext.otmm.sc.api.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;

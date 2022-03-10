@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm.util;
+package com.opentext.otmm.sc.api.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+
+import com.opentext.otmm.sc.api.util.FileUtil;
 
 public class TestFileUtil {
 	@Test

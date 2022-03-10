@@ -1,4 +1,4 @@
-package com.opentext.teamsite.sc.api.otmm.beans;
+package com.opentext.otmm.sc.api.beans;
 
 public class OTMMCollection {
 	private String id;
