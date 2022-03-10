@@ -10,7 +10,6 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opentext.otmm.sc.api.OTMMAPIWrapper;
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
 import com.opentext.otmm.sc.api.beans.OTMMCollection;
 

@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import com.opentext.otmm.sc.api.OTMMAPIHelper;
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
 
 class TestOTMMAPIHelper extends TestAbstractOTMMAPI {
