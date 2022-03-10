@@ -73,5 +73,64 @@ public class OTMMAPIHelper {
 		
 		return assets;
 	}
+	
+	/**
+	 * Retrieve folder identifier from an OTMM folder path, e.g.
+	 * "Public Folders\Stock\Stock Travel\Paris"
+	 * @param path - Folder path
+	 * @return folder identifier, null if path doesn't exists.
+	 */
+	public String retrieveFolderIdFromPath(String path) {
+		String folderId = null;
+		String currentFolderId = null;
+		
+		List<OTMMAsset> assets = null;
+		int nAssets = 0;
+		
+		boolean found = true;
+		
+		if (path != null) {
+			String[] folders = path.split("\\\\");
+			
+			if(folders != null && folders.length > 0) {
+				int nFolders = folders.length;
+				
+				OTMMAPIWrapper wrapper = new OTMMAPIWrapper(urlBase, version);
+				
+				String sessionId = wrapper.createSession(username, password);
+				
+				for(int i=0; i < nFolders && found; i++) {
+					logger.debug("Path segment: " + folders[i]);
+
+					if(i == 0) {
+						assets = wrapper.retrieveAllRootFolders(sessionId);
+					}
+					else {
+						assets = wrapper.retrieveAllChildrenOfAFolder(sessionId, currentFolderId);
+					}
+					
+					found = false;
+					if(assets != null) {
+						nAssets = assets.size();
+						
+						for (int j=0; j < nAssets && !found; j++) {
+							logger.debug("Evaluating folder: " + assets.get(j).getName());
+							
+							if (assets.get(j).getName().compareTo(folders[i]) == 0) {
+								found = true;
+								currentFolderId = assets.get(j).getId();
+							}
+						}
+					}
+				}
+				
+				if(found) {
+					folderId = currentFolderId;
+				}
+			}			
+		}
+		
+		return folderId;
+	}
 
 }

@@ -15,6 +15,9 @@ import com.opentext.teamsite.sc.api.otmm.beans.OTMMCollection;
 
 class TestOTMMAPIWrapper extends TestAbstractOTMMAPI {
 
+	//private static final String FOLDER_ID_MY_FOLDERS = "1001N";
+	private static final String FOLDER_ID_PUBLIC_FOLDERS = "ARTESIA.PUBLIC.TREEN";
+	
 	private static OTMMAPIWrapper wrapper = null;
 	private static String sessionId = null;
 	
@@ -38,6 +41,20 @@ class TestOTMMAPIWrapper extends TestAbstractOTMMAPI {
 		}
 		
 		assertTrue(intSessionId > 0);
+	}
+	
+	@Test 
+	void retrieveAllRootFolders(){
+		List<OTMMAsset> assets = wrapper.retrieveAllRootFolders(sessionId);
+		assertNotNull(assets);
+		assertTrue(assets.size() > 0);				
+	}
+		
+	@Test 
+	void retrieveAllChildrenOfAFolder(){
+		List<OTMMAsset> assets = wrapper.retrieveAllChildrenOfAFolder(sessionId, FOLDER_ID_PUBLIC_FOLDERS);
+		assertNotNull(assets);
+		assertTrue(assets.size() > 0);				
 	}
 	
 	@Test
