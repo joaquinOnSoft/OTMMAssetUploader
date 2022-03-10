@@ -21,7 +21,6 @@ public class TestFileUtil {
 			myWriter.write("Files in Java might be tricky, but it is fun enough!");
 			myWriter.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 
@@ -32,7 +31,7 @@ public class TestFileUtil {
 	
 	@Test
 	public void testGetFileFromResources() {
-		File f = FileUtil.getFileFromResources("1257656312529186816.xml");
+		File f = FileUtil.getFileFromResources("otmm-api.properties");
 		assertNotNull(f);
 		assertTrue(f.exists());
 	}

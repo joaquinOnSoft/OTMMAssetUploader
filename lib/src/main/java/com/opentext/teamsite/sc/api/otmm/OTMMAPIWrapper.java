@@ -143,7 +143,7 @@ public class OTMMAPIWrapper {
 			try {
 				JSONObject json = new JSONObject(response);
 				if (json != null) {
-					sessionId = json.getJSONObject("session_resource").getJSONObject("session").getString("id");
+					sessionId = json.getJSONObject("session_resource").getJSONObject("session").optString("id");
 				}
 			} catch (JSONException e) {
 				logger.error("/otmmapi/v6/sessions (Response to JSON conversion) ", e);
