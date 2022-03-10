@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 
 import com.opentext.otmm.sc.api.util.FileUtil;
 
-public class TestAbstractOTMMAPI{
+public class TestOTMMAPI{
 	
 	protected static Properties prop = null;
 	

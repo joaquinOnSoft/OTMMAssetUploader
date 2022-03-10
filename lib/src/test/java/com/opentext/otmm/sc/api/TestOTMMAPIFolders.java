@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
 
-class TestOTMMAPIFolders extends TestAbstractOTMMAPI {
+class TestOTMMAPIFolders extends TestOTMMAPI {
 
 	//private static final String FOLDER_ID_MY_FOLDERS = "1001N";
 	private static final String FOLDER_ID_PUBLIC_FOLDERS = "ARTESIA.PUBLIC.TREEN";

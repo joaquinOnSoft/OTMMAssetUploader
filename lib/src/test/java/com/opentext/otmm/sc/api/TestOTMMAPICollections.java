@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
 import com.opentext.otmm.sc.api.beans.OTMMCollection;
 
-class TestOTMMAPICollections extends TestAbstractOTMMAPI {
+class TestOTMMAPICollections extends TestOTMMAPI {
 
 	private static OTMMAPICollections wrapper = null;
 	private static String sessionId = null;

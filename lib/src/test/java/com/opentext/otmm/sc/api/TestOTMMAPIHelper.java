@@ -10,13 +10,14 @@ import java.util.List;
 
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
 
-class TestOTMMAPIHelper extends TestAbstractOTMMAPI {
+class TestOTMMAPIHelper extends TestOTMMAPI {
 	
 	private static OTMMAPIHelper apiHelper;
 	
 	@BeforeAll
 	static void init() {
-		apiHelper = new OTMMAPIHelper(prop.getProperty("url"), 
+		apiHelper = new OTMMAPIHelper(
+				prop.getProperty("url"), 
 				prop.getProperty("user"), 
 				prop.getProperty("password"));		
 	}
