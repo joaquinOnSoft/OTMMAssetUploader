@@ -35,7 +35,7 @@ public class OTMMAPISecurityPolicies extends OTMMAPI {
 	public List<OTMMSecurityPolicy> retrieveAllSecurityPolicies(String sessionId) {
 		List<OTMMSecurityPolicy> policies = null;
 		
-		String response = get("securitypolicies", sessionId);
+		String response = get("securitypolicies", getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {

@@ -33,7 +33,7 @@ public class OTMMAPIFolders extends OTMMAPI {
 	public List<OTMMAsset> retrieveAllRootFolders(String sessionId){
 		List<OTMMAsset> assets = null;
 		
-		String response = get("folders/rootfolders", sessionId);
+		String response = get("folders/rootfolders", getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {
@@ -75,7 +75,7 @@ public class OTMMAPIFolders extends OTMMAPI {
 	public List<OTMMAsset> retrieveAllChildrenOfAFolder(String sessionId, String folderId){
 		List<OTMMAsset> assets = null;
 		
-		String response = get("folders/" + folderId +"/children", sessionId);
+		String response = get("folders/" + folderId +"/children", getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {

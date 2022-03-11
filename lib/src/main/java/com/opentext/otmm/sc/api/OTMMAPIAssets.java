@@ -61,12 +61,12 @@ public class OTMMAPIAssets extends OTMMAPI {
 		    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 		    builder.addTextBody("parent_folder_id", folderId);
 		    builder.addTextBody("manifest", getManifest(file), ContentType.APPLICATION_JSON);
-		    builder.addTextBody("asset_representation", null, ContentType.APPLICATION_JSON);
+		    builder.addTextBody("asset_representation", getAsset(file), ContentType.APPLICATION_JSON);
 		    builder.addBinaryBody("files", file, ContentType.create("application/octet-stream"), file.getName());
 		    
 		    HttpEntity multipart = builder.build();
 			//TODO complete - Work in progress here!!!
-			post("assets", null, sessionId);
+			post("assets", getDefaultHeaders(sessionId), null);
 		}
 		
 		
@@ -108,6 +108,28 @@ public class OTMMAPIAssets extends OTMMAPI {
 		return jsonObj.toString();
 	}
 	
+	/***
+	 * Generate a JSON with the <strong>manifest</strong> field 
+	 * that looks like this:
+	 * <pre>
+	 * {
+	 * 	"asset_resource": {
+	 * 		"metadata": {
+	 * 			"name": "otmm-api.properties",
+	 * 			"id": "61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f"
+	 * 		},
+	 * 		"metadata_model_id": "01acfc5f70f34ef84711e0b83161b716e147c87b",
+	 * 		"asset_id": "61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f",
+	 * 		"security_policy_list": [{
+	 * 			"id": "2"
+	 * 		}]
+	 * 	}
+	 * }
+	 * </pre>
+	 * 
+	 * @param file
+	 * @return
+	 */	
 	protected String getAsset(File file) {
 		String id = HashUtil.hash(file.getName());
 		
@@ -119,9 +141,16 @@ public class OTMMAPIAssets extends OTMMAPI {
 		JSONObject metadata = new JSONObject();		
 		metadata.put("id", id);
 		metadata.put("name", file.getName());
-		
+
+		JSONArray securityPolicyList = new JSONArray();
+		JSONObject securityPolicy = new JSONObject();
+		securityPolicy.put("id", DEFAULT_ASSET_POLICY);
+		securityPolicyList.put(securityPolicy);
+				
 		asset.put("metadata", metadata);
 		asset.put("metadata_model_id", TEMPLATE_STOCK_IMAGE);
+		asset.put("security_policy_list", securityPolicyList);
+		
 		assetResource.put("asset_resource", asset);
 		
 		return assetResource.toString();

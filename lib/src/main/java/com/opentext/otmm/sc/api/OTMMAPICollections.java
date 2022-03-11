@@ -36,7 +36,7 @@ public class OTMMAPICollections extends OTMMAPI {
 	public Map<String, OTMMCollection> getListOfCollectionForCurrentUser(String sessionId) {
 		Map<String, OTMMCollection> collections = null;
 		
-		String response = get("collections", sessionId);
+		String response = get("collections", getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {
@@ -79,7 +79,7 @@ public class OTMMAPICollections extends OTMMAPI {
 	public List<OTMMAsset> retrieveAllAssetsOfACollection(String sessionId, String collectionId) {
 		List<OTMMAsset> assets = null;
 		
-		String response = get("collections/" + collectionId + "/assets", sessionId);
+		String response = get("collections/" + collectionId + "/assets", getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {

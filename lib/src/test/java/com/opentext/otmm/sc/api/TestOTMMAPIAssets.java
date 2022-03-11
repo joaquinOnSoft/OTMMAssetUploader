@@ -14,6 +14,7 @@ class TestOTMMAPIAssets extends TestOTMMAPI {
 
 	private static OTMMAPIAssets wrapper = null;
 	private static final String MANIFEST = "{\"upload_manifest\":{\"master_files\":[{\"file\":{\"file_name\":\"otmm-api.properties\"}}]}}";
+	private static final String ASSET = "{\"asset_resource\":{\"metadata\":{\"name\":\"otmm-api.properties\",\"id\":\"61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f\"},\"metadata_model_id\":\"01acfc5f70f34ef84711e0b83161b716e147c87b\",\"asset_id\":\"61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f\",\"security_policy_list\":[{\"id\":\"2\"}]}}";
 	
 	@BeforeEach
 	void setupBeforeEach() {				
@@ -31,5 +32,16 @@ class TestOTMMAPIAssets extends TestOTMMAPI {
 		String json = wrapper.getManifest(file);
 		assertNotNull(json);
 		assertEquals(MANIFEST, json);;		
+	}
+	
+	@Test
+	void getAsset() {
+		File file = FileUtil.getFileFromResources("otmm-api.properties");
+		
+		assertNotNull(file);
+		
+		String json = wrapper.getAsset(file);
+		assertNotNull(json);
+		assertEquals(ASSET, json);;		
 	}
 }

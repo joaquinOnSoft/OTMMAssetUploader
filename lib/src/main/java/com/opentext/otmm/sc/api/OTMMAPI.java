@@ -2,6 +2,7 @@ package com.opentext.otmm.sc.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -58,18 +59,32 @@ public abstract class OTMMAPI {
 		return urlBuilder.toString();
 	}
 
+	protected List<NameValuePair> getDefaultHeaders(String sessionId){
+		List<NameValuePair> headers = new LinkedList<NameValuePair>();
+		NameValuePair header = new BasicNameValuePair("X-Requested-By", sessionId);
+		
+		headers.add(header);
+		
+		return headers;
+	}
+	
 	/**
 	 * HTTP GET request
 	 * @param method - OTMM API method name
 	 * @param sessionId - OTMM session identifier (got using "create session" API method)
 	 * @return response from server (usually in JSON format)
 	 */
-	protected String get(String method, String sessionId) {
+	protected String get(String method, List<NameValuePair> headers) {
 		String result = null;
 	
 		try {			
 			HttpGet httpGet = new HttpGet(getURLFromMethod(method));
-			httpGet.addHeader("X-Requested-By", sessionId);
+			
+			if(headers != null) {
+				for(NameValuePair pair: headers) {
+					httpGet.addHeader(pair.getName(), pair.getValue());
+				}
+			}
 	
 			HttpResponse response = client.execute(httpGet);
 	
@@ -92,25 +107,16 @@ public abstract class OTMMAPI {
 	 * @return
 	 * @see https://www.baeldung.com/httpclient-post-http-request
 	 */
-	protected String post(String method, List<NameValuePair> params) {
-		return post(method, params, null);
-	}
-
-	/**
-	 * HTTP POST request
-	 * @param method - OTMM API method name
-	 * @param params - Key/value
-	 * @param sessionId - OTMM session identifier (got using "create session" API method)
-	 * @return
-	 * @see https://www.baeldung.com/httpclient-post-http-request
-	 */
-	protected String post(String method, List<NameValuePair> params, String sessionId) {
+	protected String post(String method, List<NameValuePair> headers, List<NameValuePair> params) {
 		String result = null;
 	
 		try {
 			HttpPost httpPost = new HttpPost(getURLFromMethod(method));
-			if(sessionId != null) {
-				httpPost.addHeader("X-Requested-By", sessionId);
+			if(headers != null) {
+				for(NameValuePair pair: headers) {
+					//"X-Requested-By"
+					httpPost.addHeader(pair.getName(), pair.getValue());
+				}
 			}
 	
 			httpPost.setEntity(new UrlEncodedFormEntity(params));
@@ -145,7 +151,7 @@ public abstract class OTMMAPI {
 		params.add(new BasicNameValuePair("username", username));
 		params.add(new BasicNameValuePair("password", password));
 		
-		String response = post("sessions", params);
+		String response = post("sessions", null, params);
 		
 		if(response != null) {
 			try {
