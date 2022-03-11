@@ -15,7 +15,6 @@ import com.opentext.otmm.sc.api.beans.OTMMCollection;
 class TestOTMMAPICollections extends TestOTMMAPI {
 
 	private static OTMMAPICollections wrapper = null;
-	private static String sessionId = null;
 	
 	@BeforeEach
 	void setupBeforeEach() {				

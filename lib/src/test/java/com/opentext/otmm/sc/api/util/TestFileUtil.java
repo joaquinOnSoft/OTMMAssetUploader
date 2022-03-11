@@ -11,8 +11,6 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import com.opentext.otmm.sc.api.util.FileUtil;
-
 public class TestFileUtil {
 	@Test
 	public void testDeleteFile() {

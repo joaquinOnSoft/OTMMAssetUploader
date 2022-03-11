@@ -3,6 +3,7 @@ package com.opentext.otmm.sc.api;
 import java.io.File;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,33 +49,45 @@ public class OTMMAPIAssets extends OTMMAPI {
 	 */
 	public String createAssets(String sessionId, String folderId, File[] files) {
 		
-	    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-	    builder.addTextBody("files", pathsToJSON(files));
-	    
-	    HttpEntity multipart = builder.build();
-		//TODO complete - Work in progress here!!!
-		post("assets", null, sessionId);
+		for(File file: files) {
+		    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		    builder.addTextBody("parent_folder_id", folderId);
+		    builder.addTextBody("manifest", getManifest(file), ContentType.APPLICATION_JSON);
+		    builder.addTextBody("asset_representation", null, ContentType.APPLICATION_JSON);
+		    builder.addBinaryBody("files", file, ContentType.create("application/octet-stream"), file.getName());
+		    
+		    HttpEntity multipart = builder.build();
+			//TODO complete - Work in progress here!!!
+			post("assets", null, sessionId);
+		}
 		
 		
 		return null;
 	}
 	
-	protected String pathsToJSON(File[] files) {
-		String json = null;
+	protected String getManifest(File file) {
+		JSONObject jsonObj = new JSONObject();
+		JSONObject uploadManifest = new JSONObject();
+		JSONArray masterFiles = new JSONArray();
 		
-		if(files != null && files.length > 0) {
-						
-			JSONArray filesArray = new JSONArray();			
-			
-			for(File file: files) {
-				JSONObject fileObj = new JSONObject();
-				fileObj.put("name", file.getName());
-				fileObj.put("value", file.getName());
-				
-				filesArray.put(file);
-			}
-		}
+		JSONObject fileObj = new JSONObject();		
+		JSONObject fileAttributes = new JSONObject();
+		fileAttributes.put("file_name", file.getName());
 		
-		return json;
+		fileObj.put("file", fileAttributes);
+		masterFiles.put(fileObj);				
+		uploadManifest.put("master_files", masterFiles);
+		jsonObj.put("upload_manifest", uploadManifest);
+		
+		return jsonObj.toString();
+	}
+	
+	protected String getAsset(File file) {
+		JSONObject assetResource = new JSONObject();
+		JSONObject asset = new JSONObject();
+		
+		assetResource.put("asset_resource", asset);
+		
+		return assetResource.toString();
 	}
 }
