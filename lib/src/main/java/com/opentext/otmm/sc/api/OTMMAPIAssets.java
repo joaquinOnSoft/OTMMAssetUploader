@@ -8,7 +8,15 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.opentext.otmm.sc.api.util.HashUtil;
+
 public class OTMMAPIAssets extends OTMMAPI {
+	
+	private static final String TEMPLATE_STOCK_IMAGE = "01acfc5f70f34ef84711e0b83161b716e147c87b";
+	
+	//Default Asset Policy
+	private static final String DEFAULT_ASSET_POLICY = "2";
+	
 	public OTMMAPIAssets(String urlBase) {
 		this(urlBase, DEFAULT_VERSION_NUMBER);
 	}
@@ -65,6 +73,24 @@ public class OTMMAPIAssets extends OTMMAPI {
 		return null;
 	}
 	
+	/***
+	 * Generate a JSON with the <strong>manifest</strong> field 
+	 * that looks like this:
+	 * <pre>
+	 * {
+	 * 	"upload_manifest": {
+	 * 		"master_files": [{
+	 * 			"file": {
+	 * 				"file_name": "otmm-api.properties"
+	 * 			}
+	 * 		}]
+	 * 	}
+	 * }
+	 * </pre>
+	 * 
+	 * @param file
+	 * @return
+	 */
 	protected String getManifest(File file) {
 		JSONObject jsonObj = new JSONObject();
 		JSONObject uploadManifest = new JSONObject();
@@ -83,9 +109,19 @@ public class OTMMAPIAssets extends OTMMAPI {
 	}
 	
 	protected String getAsset(File file) {
-		JSONObject assetResource = new JSONObject();
-		JSONObject asset = new JSONObject();
+		String id = HashUtil.hash(file.getName());
 		
+		JSONObject assetResource = new JSONObject();
+		
+		JSONObject asset = new JSONObject();
+		asset.put("asset_id", id);
+		
+		JSONObject metadata = new JSONObject();		
+		metadata.put("id", id);
+		metadata.put("name", file.getName());
+		
+		asset.put("metadata", metadata);
+		asset.put("metadata_model_id", TEMPLATE_STOCK_IMAGE);
 		assetResource.put("asset_resource", asset);
 		
 		return assetResource.toString();

@@ -12,6 +12,6 @@ public class TestHashUtil {
 		String hash = HashUtil.hash("otmm-api.properties");
 		
 		assertNotNull(hash);
-		assertEquals("", hash);
+		assertEquals("61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f", hash);
 	}
 }
