@@ -10,6 +10,8 @@ import com.opentext.otmm.sc.api.util.DateUtil;
 import com.opentext.otmm.sc.api.util.HashUtil;
 
 public class OTMMSecurityPolicy {
+	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
+	
 	private Date createDate;
 	private String description;
 	private String id;
@@ -40,7 +42,7 @@ public class OTMMSecurityPolicy {
 
 	public void setCreateDate(String createDate) {
 		try {
-			this.createDate = DateUtil.utcToDate(createDate);
+			this.createDate = DateUtil.strToDate(createDate, DATE_FORMAT);
 		} catch (ParseException e) {
 			log.error("Error parsing date", e);
 		}
@@ -72,7 +74,7 @@ public class OTMMSecurityPolicy {
 	
 	public void setLastUpdateDate(String lastUpdateDate) {
 		try {
-			this.lastUpdateDate = DateUtil.utcToDate(lastUpdateDate);
+			this.lastUpdateDate = DateUtil.strToDate(lastUpdateDate, DATE_FORMAT);
 		} catch (ParseException e) {
 			log.error("Error parsing date", e);
 		}

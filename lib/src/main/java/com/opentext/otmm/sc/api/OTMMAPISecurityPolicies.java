@@ -49,13 +49,25 @@ public class OTMMAPISecurityPolicies extends OTMMAPI {
 				    for (int i = 0, size = jsonArray.length(); i < size; i++) {
 				    	colObj = (JSONObject) jsonArray.get(i);
 				    	
-				    	OTMMSecurityPolicy policy = new OTMMSecurityPolicy(colObj.getString("id"), colObj.getString("name"));
-				    	policy.setCreateDate(colObj.getString("create_date"));
-				    	policy.setDescription(colObj.getString("description"));
-				    	policy.setLastUpdateDate(colObj.getString("last_update_date"));
-				    	policy.setLastUpdatedBy(colObj.getString("last_updated_by"));
-				    	policy.setOwnership_type(colObj.getString("ownership_type"));
-				    	policy.setStatus(colObj.getString("status"));
+				    	OTMMSecurityPolicy policy = new OTMMSecurityPolicy(colObj.get("id").toString(), colObj.get("name").toString());
+				    	if(hasValue(colObj, "create_date")) {
+				    		policy.setCreateDate(colObj.getString("create_date"));
+				    	}
+				    	if(hasValue(colObj, "description")) {
+				    		policy.setDescription(colObj.getString("description"));
+				    	}
+				    	if(hasValue(colObj, "last_update_date")) {
+				    		policy.setLastUpdateDate(colObj.get("last_update_date").toString());
+				    	}
+				    	if(hasValue(colObj, "last_updated_by")) {
+				    		policy.setLastUpdatedBy(colObj.getString("last_updated_by"));
+				    	}
+				    	if(hasValue(colObj, "ownership_type")) {
+				    		policy.setOwnership_type(colObj.getString("ownership_type"));
+				    	}
+				    	if(hasValue(colObj, "status")) {
+				    		policy.setStatus(colObj.getString("status"));
+				    	}
 				    	
 				    	policies.add(policy);
 					}
@@ -67,4 +79,10 @@ public class OTMMAPISecurityPolicies extends OTMMAPI {
 		
 		return policies;
 	}	
+	
+	private boolean hasValue(JSONObject colObj, String fieldName) {
+		String value = colObj.optString(fieldName);
+		
+		return value != null && value.compareTo("") != 0; 
+	}
 }
