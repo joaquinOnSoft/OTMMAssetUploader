@@ -41,7 +41,7 @@ It contains the following parameters:
  - **password**: OTMM password for the given user
 
 ```
-url=https://mydomainexmple.com:11090
+url=http://mydomainexmple.com:11090
 version=6
 user=tsuper
 password=<PASSORD_GOES_HERE>
