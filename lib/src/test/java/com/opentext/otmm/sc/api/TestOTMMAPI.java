@@ -10,7 +10,7 @@ import com.opentext.otmm.sc.api.util.FileUtil;
 
 public class TestOTMMAPI{
 	
-	private static final String FOLDER_ID_MY_FOLDERS = "1001N";
+	protected static final String FOLDER_ID_MY_FOLDERS = "1001N";
 	protected static final String FOLDER_ID_PUBLIC_FOLDERS = "ARTESIA.PUBLIC.TREEN";
 	
 	protected static Properties prop = null;

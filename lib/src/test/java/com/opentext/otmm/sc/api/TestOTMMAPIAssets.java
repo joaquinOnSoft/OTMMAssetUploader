@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,18 @@ class TestOTMMAPIAssets extends TestOTMMAPI {
 		wrapper = new OTMMAPIAssets(prop.getProperty("url"), prop.getProperty("version", "6"));	
 		
 		sessionId = wrapper.createSession(prop.getProperty("user"), prop.getProperty("password"));		
+	}
+	
+	
+	@Test 
+	void createAssets() {
+		List<File> files = new LinkedList<File>();
+		File kittenImg = FileUtil.getFileFromResources("the-red-or-white-cat-i-on-white-studio.jpg");
+		files.add(kittenImg);
+		
+		String result = wrapper.createAssets(sessionId, FOLDER_ID_MY_FOLDERS, files);
+		
+		assertNotNull(result);
 	}
 	
 	@Test

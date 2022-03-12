@@ -57,8 +57,9 @@ public class OTMMAPIAssets extends OTMMAPI {
 	 * @see https://developer.opentext.com/apis/14ba85a7-4693-48d3-8c93-9214c663edd2/06c4a79f-3f4a-4a5a-aab9-9519740b27c7/1d6ec9c5-7620-456e-b52f-cfffb2734eb0#operation/createAsset
 	 * @see https://www.baeldung.com/httpclient-post-http-request#post-multipart-request
 	 */
-	public String createAssets(String sessionId, String folderId, File[] files) {
+	public String createAssets(String sessionId, String folderId, List<File> files) {
 		List<HttpEntity> entities = new LinkedList<HttpEntity>();
+		String result = null;
 		
 		for(File file: files) {
 		    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -69,9 +70,11 @@ public class OTMMAPIAssets extends OTMMAPI {
 			
 		    entities.add(builder.build());
 		    
-			post("assets", getDefaultHeaders(sessionId), entities);
+			result = post("assets", getDefaultHeaders(sessionId), entities);
 			
-			// Clean entities for next call
+			logger.debug("RESULT: " + result); 
+			
+			// Clean entities for next call (just in case there are more than one file)
 			entities.clear();
 		}
 		
