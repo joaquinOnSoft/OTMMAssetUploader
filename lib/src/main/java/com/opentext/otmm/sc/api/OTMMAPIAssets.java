@@ -1,6 +1,8 @@
 package com.opentext.otmm.sc.api;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -56,6 +58,7 @@ public class OTMMAPIAssets extends OTMMAPI {
 	 * @see https://www.baeldung.com/httpclient-post-http-request#post-multipart-request
 	 */
 	public String createAssets(String sessionId, String folderId, File[] files) {
+		List<HttpEntity> entities = new LinkedList<HttpEntity>();
 		
 		for(File file: files) {
 		    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
@@ -63,10 +66,13 @@ public class OTMMAPIAssets extends OTMMAPI {
 		    builder.addTextBody("manifest", getManifest(file), ContentType.APPLICATION_JSON);
 		    builder.addTextBody("asset_representation", getAsset(file), ContentType.APPLICATION_JSON);
 		    builder.addBinaryBody("files", file, ContentType.create("application/octet-stream"), file.getName());
+			
+		    entities.add(builder.build());
 		    
-		    HttpEntity multipart = builder.build();
-			//TODO complete - Work in progress here!!!
-			post("assets", getDefaultHeaders(sessionId), null);
+			post("assets", getDefaultHeaders(sessionId), entities);
+			
+			// Clean entities for next call
+			entities.clear();
 		}
 		
 		

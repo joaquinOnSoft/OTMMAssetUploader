@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -107,19 +108,22 @@ public abstract class OTMMAPI {
 	 * @return
 	 * @see https://www.baeldung.com/httpclient-post-http-request
 	 */
-	protected String post(String method, List<NameValuePair> headers, List<NameValuePair> params) {
+	protected String post(String method, List<NameValuePair> headers, List<HttpEntity> entities) {
 		String result = null;
 	
 		try {
 			HttpPost httpPost = new HttpPost(getURLFromMethod(method));
 			if(headers != null) {
 				for(NameValuePair pair: headers) {
-					//"X-Requested-By"
 					httpPost.addHeader(pair.getName(), pair.getValue());
 				}
 			}
 	
-			httpPost.setEntity(new UrlEncodedFormEntity(params));
+			if(entities != null) {
+				for(HttpEntity entity: entities) {
+					httpPost.setEntity(entity);	
+				}
+			}
 	
 			CloseableHttpResponse response = client.execute(httpPost);
 	
@@ -146,12 +150,20 @@ public abstract class OTMMAPI {
 	 */
 	public String createSession(String username, String password) {
 		String sessionId = null;
-	
+		List<HttpEntity> entities = null;
+		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("username", username));
 		params.add(new BasicNameValuePair("password", password));
+		try {
+			HttpEntity  entity = new UrlEncodedFormEntity(params);	
+			entities = new LinkedList<HttpEntity>();
+			entities.add(entity);
+		} catch (Exception e) {
+			logger.error("", e);
+		}
 		
-		String response = post("sessions", null, params);
+		String response = post("sessions", null, entities);
 		
 		if(response != null) {
 			try {
