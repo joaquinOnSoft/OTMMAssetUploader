@@ -59,11 +59,10 @@ public class OTMMAPIAssets extends OTMMAPI {
 	 * @see https://developer.opentext.com/apis/14ba85a7-4693-48d3-8c93-9214c663edd2/06c4a79f-3f4a-4a5a-aab9-9519740b27c7/1d6ec9c5-7620-456e-b52f-cfffb2734eb0#operation/createAsset
 	 * @see https://www.baeldung.com/httpclient-post-http-request#post-multipart-request
 	 */
-	public List<String> createAsset(String sessionId, String folderId, File file) {
+	public String createAsset(String sessionId, String folderId, File file) {
 		List<HttpEntity> entities = new LinkedList<HttpEntity>();
 		String result = null;
 		
-		List<String> jobIds = new LinkedList<String>();
 		String jobId = null;
 		
 		
@@ -82,12 +81,10 @@ public class OTMMAPIAssets extends OTMMAPI {
 			//Expected response looks like this:
 			//   {"job_handle":{"job_id":"1125"}}			
 			JSONObject json = new JSONObject(result);
-			jobId = json.getJSONObject("job_handle").getString("job_id");
-			
-			jobIds.add(jobId);
+			jobId = json.getJSONObject("job_handle").getString("job_id");					
 		}
 						
-		return jobIds.size() > 0? jobIds : null;
+		return jobIds;
 	}
 	
 	/***

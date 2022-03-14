@@ -31,10 +31,9 @@ class TestOTMMAPIAssets extends TestOTMMAPI {
 	void createAssets() {		
 		File kittenImg = FileUtil.getFileFromResources("the-red-or-white-cat-i-on-white-studio.jpg");
 		
-		List<String> jobIds = wrapper.createAsset(sessionId, FOLDER_ID_MY_FOLDERS_SAMPLE, kittenImg);
+		String jobId = wrapper.createAsset(sessionId, FOLDER_ID_MY_FOLDERS_SAMPLE, kittenImg);
 		
-		assertNotNull(jobIds);
-		assertTrue(jobIds.size() == 1);
+		assertNotNull(jobId);		
 	}
 	
 	@Test

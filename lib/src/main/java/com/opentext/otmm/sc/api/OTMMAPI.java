@@ -23,9 +23,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public abstract class OTMMAPI {
-
+	
 	protected static int DEFAULT_VERSION_NUMBER = 6;
+	
+	/**
+	 * The HTTP 200 OK success status response code indicates that the request has succeeded. 
+	 * A 200 response is cacheable by default.
+	 * 
+	 * The meaning of a success depends on the HTTP request method:
+	 * <ul>
+	 *    <li>
+	 *       <strong>GET</strong>: The resource has been fetched and is transmitted in the message body.
+	 *    </li>
+	 *    <li>
+	 *       <strong>HEAD</strong>: The representation headers are included in the response without any message body
+	 *    </li>
+	 *    <li>
+	 *       <strong>POST</strong>: The resource describing the result of the action is transmitted in the message body
+	 *    </li>
+	 *    <li>
+	 *       <strong>TRACE</strong>: The message body contains the request message as received by the server.
+	 *    </li>
+	 * </ul>
+	 * */
 	private static int HTTP_RESPONSE_CODE_OK = 200;
+	
+	/**
+	 * The HyperText Transfer Protocol (HTTP) 202 Accepted response status code indicates that 
+	 * the request has been accepted for processing, but the processing has not been completed; 
+	 * in fact, processing may not have started yet. The request might or might not eventually 
+	 * be acted upon, as it might be disallowed when processing actually takes place.
+	 * */
 	private static int HTTP_RESPONSE_ACCEPTED = 202;
 	
 	protected String urlBase;
@@ -129,8 +157,8 @@ public abstract class OTMMAPI {
 	
 			CloseableHttpResponse response = client.execute(httpPost);
 	
-			if (response.getStatusLine().getStatusCode() == HTTP_RESPONSE_CODE_OK 
-					|| response.getStatusLine().getStatusCode() == HTTP_RESPONSE_ACCEPTED) {
+			if (response.getStatusLine().getStatusCode() == HTTP_RESPONSE_CODE_OK ||  
+					response.getStatusLine().getStatusCode() == HTTP_RESPONSE_ACCEPTED) {
 				result = EntityUtils.toString(response.getEntity());
 			}
 		} catch (IOException e) {

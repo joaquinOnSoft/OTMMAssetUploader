@@ -1,5 +1,6 @@
 package com.opentext.otmm.sc.api;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,10 @@ public class OTMMAPIHelper {
 	 */	
 	public OTMMAPIHelper(String urlBase, String username, String password) {
 		this(urlBase, 6, username, password);
+	}
+	
+	public OTMMAPIHelper(String urlBase, String version, String username, String password) throws NumberFormatException {
+		this(urlBase, Integer.parseInt(version), username, password);
 	}
 	
 	/**
@@ -132,5 +137,30 @@ public class OTMMAPIHelper {
 		
 		return folderId;
 	}
-
+	
+	public String createAssetInPath(String otmmPath, File assetFile){
+		String jobId = null;
+		
+		if(otmmPath != null) {
+			String folderId = retrieveFolderIdFromPath(otmmPath);
+			logger.debug("Folder id: " + folderId);
+			
+			if(folderId != null) {
+				jobId = createAsset(folderId, assetFile);
+			}
+		}
+		
+		return jobId;		
+	}	
+	
+	public String createAsset(String folderId, File assetFile){
+		String jobId = null;
+		OTMMAPIAssets wrapper = new OTMMAPIAssets(urlBase, version);
+		
+		String sessionId = wrapper.createSession(username, password);
+		if(sessionId != null) {
+			jobId = wrapper.createAsset(sessionId, folderId, assetFile);
+		}
+		return null;
+	}
 }
