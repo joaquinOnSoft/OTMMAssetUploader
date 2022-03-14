@@ -108,6 +108,7 @@ public class OTMMAPIAssets extends OTMMAPI {
 		JSONObject fileObj = new JSONObject();		
 		JSONObject fileAttributes = new JSONObject();
 		fileAttributes.put("file_name", file.getName());
+		//fileAttributes.put("file_path", file.getAbsolutePath());
 		
 		fileObj.put("file", fileAttributes);
 		masterFiles.put(fileObj);				
@@ -142,14 +143,18 @@ public class OTMMAPIAssets extends OTMMAPI {
 	protected String getAsset(File file) {
 		String id = HashUtil.hash(file.getName());
 		
-		JSONObject assetResource = new JSONObject();
+		JSONObject assetRepresentation = new JSONObject();	
+		JSONObject assetResource = new JSONObject();		
 		
 		JSONObject asset = new JSONObject();
 		asset.put("asset_id", id);
 		
 		JSONObject metadata = new JSONObject();		
 		metadata.put("id", id);
+		//TODO - Review
+		//metadata.put("metadata_element_list", null);
 		metadata.put("name", file.getName());
+		
 
 		JSONArray securityPolicyList = new JSONArray();
 		JSONObject securityPolicy = new JSONObject();
@@ -160,8 +165,9 @@ public class OTMMAPIAssets extends OTMMAPI {
 		asset.put("metadata_model_id", TEMPLATE_STOCK_IMAGE);
 		asset.put("security_policy_list", securityPolicyList);
 		
-		assetResource.put("asset_resource", asset);
+		assetResource.put("asset", asset);
+		assetRepresentation.put("asset_resource", assetResource);		
 		
-		return assetResource.toString();
+		return assetRepresentation.toString();
 	}
 }
