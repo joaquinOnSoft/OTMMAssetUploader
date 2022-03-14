@@ -11,6 +11,7 @@ import com.opentext.otmm.sc.api.util.FileUtil;
 public class TestOTMMAPI{
 	
 	protected static final String FOLDER_ID_MY_FOLDERS = "1001N";
+	protected static final String FOLDER_ID_MY_FOLDERS_SAMPLE ="ecd640e8b624eaa194f09398b989450c494a3d3b";
 	protected static final String FOLDER_ID_PUBLIC_FOLDERS = "ARTESIA.PUBLIC.TREEN";
 	
 	protected static Properties prop = null;

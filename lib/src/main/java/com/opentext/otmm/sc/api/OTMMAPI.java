@@ -26,6 +26,8 @@ public abstract class OTMMAPI {
 
 	protected static int DEFAULT_VERSION_NUMBER = 6;
 	private static int HTTP_RESPONSE_CODE_OK = 200;
+	private static int HTTP_RESPONSE_ACCEPTED = 202;
+	
 	protected String urlBase;
 	protected int version;
 	protected CloseableHttpClient client;
@@ -127,7 +129,8 @@ public abstract class OTMMAPI {
 	
 			CloseableHttpResponse response = client.execute(httpPost);
 	
-			if (response.getStatusLine().getStatusCode() == HTTP_RESPONSE_CODE_OK) {
+			if (response.getStatusLine().getStatusCode() == HTTP_RESPONSE_CODE_OK 
+					|| response.getStatusLine().getStatusCode() == HTTP_RESPONSE_ACCEPTED) {
 				result = EntityUtils.toString(response.getEntity());
 			}
 		} catch (IOException e) {

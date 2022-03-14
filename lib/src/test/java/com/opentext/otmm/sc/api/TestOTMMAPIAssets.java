@@ -2,6 +2,7 @@ package com.opentext.otmm.sc.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -16,7 +17,7 @@ class TestOTMMAPIAssets extends TestOTMMAPI {
 
 	private static OTMMAPIAssets wrapper = null;
 	private static final String MANIFEST = "{\"upload_manifest\":{\"master_files\":[{\"file\":{\"file_name\":\"otmm-api.properties\"}}]}}";
-	private static final String ASSET = "{\"asset_resource\":{\"asset\":{\"metadata\":{\"name\":\"otmm-api.properties\",\"id\":\"61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f\"},\"metadata_model_id\":\"01acfc5f70f34ef84711e0b83161b716e147c87b\",\"asset_id\":\"61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f\",\"security_policy_list\":[{\"id\":\"2\"}]}}}";
+	private static final String ASSET = "{\"asset_resource\":{\"asset\":{\"metadata\":{\"name\":\"otmm-api.properties\",\"id\":\"61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f\"},\"metadata_model_id\":\"ARTESIA.MODEL.DEFAULT\",\"asset_id\":\"61e63dc48522e3683e2f31ff16f2697ceeed381fb0da87788f9aaea52fb42e4f\",\"security_policy_list\":[{\"id\":\"2\"}]}}}";
 	
 	@BeforeEach
 	void setupBeforeEach() {				
@@ -27,14 +28,13 @@ class TestOTMMAPIAssets extends TestOTMMAPI {
 	
 	
 	@Test 
-	void createAssets() {
-		List<File> files = new LinkedList<File>();
+	void createAssets() {		
 		File kittenImg = FileUtil.getFileFromResources("the-red-or-white-cat-i-on-white-studio.jpg");
-		files.add(kittenImg);
 		
-		String result = wrapper.createAssets(sessionId, FOLDER_ID_MY_FOLDERS, files);
+		List<String> jobIds = wrapper.createAsset(sessionId, FOLDER_ID_MY_FOLDERS_SAMPLE, kittenImg);
 		
-		assertNotNull(result);
+		assertNotNull(jobIds);
+		assertTrue(jobIds.size() == 1);
 	}
 	
 	@Test
