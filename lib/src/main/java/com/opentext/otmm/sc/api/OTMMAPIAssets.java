@@ -84,7 +84,7 @@ public class OTMMAPIAssets extends OTMMAPI {
 			jobId = json.getJSONObject("job_handle").getString("job_id");					
 		}
 						
-		return jobIds;
+		return jobId;
 	}
 	
 	/***
