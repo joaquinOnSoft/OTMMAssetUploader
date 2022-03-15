@@ -1,5 +1,6 @@
 package com.opentext.otmm.sc.api;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,11 +23,16 @@ public class OTMMAssetUploader {
 	
 	public static void main(String[] args) {
 		String otmmPath = null;
+		File asset = null;
 		Properties prop = new Properties();
 		InputStream file = null;
 
 		Options options = new Options();
 
+		Option assetConfig = new Option("a", "asset", true, "Path to asset (image or video) to be uploaded");		
+		assetConfig.setRequired(true);
+		options.addOption(assetConfig);		
+		
 		Option actionConfig = new Option("c", "config", true, "Define config file path");		
 		actionConfig.setRequired(true);
 		options.addOption(actionConfig);
@@ -46,30 +52,40 @@ public class OTMMAssetUploader {
 				otmmPath = cmd.getOptionValue("path");
 			}
 			
+			if(cmd.hasOption("asset")) {
+				asset = new File(cmd.getOptionValue("asset"));
+			}
+			
 			if (cmd.hasOption("config")) {
 				String configFilePath = cmd.getOptionValue("config");
 
 				if(FileUtil.isFile(configFilePath)) {
 					file = new FileInputStream(configFilePath);
-					prop.load(file);
+					prop.load(file);										
+				}
+			}
+			
+			if(asset != null && asset.isFile() && prop != null) {
+				String url = prop.getProperty("url");
+				String version = prop.getProperty("version", "6");
+				String user = prop.getProperty("user");
+				String password = prop.getProperty("password");
+				
+				if(url != null && version != null && user != null && password != null) {
+					OTMMAPIHelper helper = new OTMMAPIHelper(url, version, user, password);
+					String folderId = helper.retrieveFolderIdFromPath(otmmPath);
 					
-					String url = prop.getProperty("url");
-					String version = prop.getProperty("version", "6");
-					String user = prop.getProperty("user");
-					String password = prop.getProperty("password");
-					
-					if(url != null && version != null && user != null && password != null) {
-						OTMMAPIHelper helper = new OTMMAPIHelper(url, version, user, password);
-						String folderId = helper.retrieveFolderIdFromPath(otmmPath);
-						
-						if(folderId == null) {
-							System.err.println("Invalid OTMM path: " + otmmPath);
-						}
-						else {
-							OTMMAPIAssets assets = new OTMMAPIAssets(url, version);
-							
-						}
+					if(folderId == null) {
+						System.err.println("Invalid OTMM path: " + otmmPath);
 					}
+					else {
+						String jobId = helper.createAsset(folderId, asset);
+						
+						System.out.println("Import process launched. Job Id: " + jobId);
+					}
+				}
+				else {
+					System.err.println("Invalid configuration parameters in `properties` file.");
 				}
 			}
 

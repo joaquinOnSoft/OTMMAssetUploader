@@ -161,6 +161,6 @@ public class OTMMAPIHelper {
 		if(sessionId != null) {
 			jobId = wrapper.createAsset(sessionId, folderId, assetFile);
 		}
-		return null;
+		return jobId;
 	}
 }
