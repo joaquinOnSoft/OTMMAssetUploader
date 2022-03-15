@@ -32,8 +32,12 @@ It accept the following parameters:
 Execution example:
 
 ```
-java -jar otmm-asset-uploader-22.03.15.jar --config otmm-api.properties --path "My Folders\sample" --asset ./the-red-or-white-cat-i-on-white-studio.jpg
+java -jar otmm-asset-uploader-22.03.15.jar --config otmm-api.properties --path "My Folders\sample" --asset the-red-or-white-cat-i-on-white-studio.jpg
 ```
+
+Once you have executed this tool you will see your asset in OTMM
+
+![Image uploaded to OTMM using REST API](./img/image-upload-to-otmm-using-the-api.png)
 
 ### otmm-api.properties
 
