@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'OTMMAssetUploader'
-include('lib')
+include('otmm-asset-uploader')
