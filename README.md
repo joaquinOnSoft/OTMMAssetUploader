@@ -3,8 +3,10 @@
 Command line tool to upload a file/s to an OpenText Media Management (OTMM) instance
 using the [OTMM REST API](https://developer.opentext.com/apis/14ba85a7-4693-48d3-8c93-9214c663edd2/06c4a79f-3f4a-4a5a-aab9-9519740b27c7/1d6ec9c5-7620-456e-b52f-cfffb2734eb0).
 
-> NOTE: This project is a technological demonstrator to show how to use  
-> OTMM REST API. It doesn't pretend to be a production-ready tool.
+> **NOTE**: This project is a technological demonstrator to show how to use  
+> OTMM REST API. 
+> 
+> It doesn't pretend to be a production-ready tool.
 
 ## What's OTMM?
 

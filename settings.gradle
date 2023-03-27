@@ -8,4 +8,6 @@
  */
 
 rootProject.name = 'OTMMAssetUploader'
-include('lib')
+include('otmm-assets-uploader-core')
+include('otmm-assets-uploader-demo')
+include('otmm-assets-uploader-from-excel')
