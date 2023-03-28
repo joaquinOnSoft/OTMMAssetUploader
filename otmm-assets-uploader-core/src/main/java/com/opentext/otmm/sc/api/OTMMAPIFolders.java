@@ -11,6 +11,9 @@ import com.opentext.otmm.sc.api.beans.OTMMAsset;
 
 public class OTMMAPIFolders extends OTMMAPI {
 
+	private static final String GET__RETRIEVE_ALL_ROOT_FOLDERS = "folders/rootfolders";
+	private static final String GET__RETRIEVE_ALL_CHILDREN_OF_A_FOLDER = "folders/{id}/children";
+
 	public OTMMAPIFolders(String urlBase) {
 		super(urlBase);
 	}
@@ -24,6 +27,19 @@ public class OTMMAPIFolders extends OTMMAPI {
 	}	
 
 	/**
+	 * <strong>Create a Folder</strong>
+	 * Create a sub-folder under the specified Folder. In the supplied FolderRepresentation, one 
+	 * needs to set only folder name, folder type id, metadata and security policies. In metadata, 
+	 * set only field id and value.
+	 * <strong>Method</strong>: POST
+	 * <strong>URL</strong>: /v6/folders/{id}
+	 * @param sessionId - Session identifier (provided by `sessions` method)
+	 */
+	public void createAFolder(String sessionId, String folderId) {
+		
+	}
+	
+	/**
 	 * Retrieve all Root Folders 	
 	 * <strong>Method</strong>: GET
 	 * <strong>URL</strong>: /v6/folders/rootfolders
@@ -33,7 +49,7 @@ public class OTMMAPIFolders extends OTMMAPI {
 	public List<OTMMAsset> retrieveAllRootFolders(String sessionId){
 		List<OTMMAsset> assets = null;
 		
-		String response = get("folders/rootfolders", getDefaultHeaders(sessionId));
+		String response = get(GET__RETRIEVE_ALL_ROOT_FOLDERS, getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {
@@ -75,7 +91,7 @@ public class OTMMAPIFolders extends OTMMAPI {
 	public List<OTMMAsset> retrieveAllChildrenOfAFolder(String sessionId, String folderId){
 		List<OTMMAsset> assets = null;
 		
-		String response = get("folders/" + folderId +"/children", getDefaultHeaders(sessionId));
+		String response = get(GET__RETRIEVE_ALL_CHILDREN_OF_A_FOLDER.replace("{id}", folderId), getDefaultHeaders(sessionId));
 		
 		if(response != null) {
 			try {
