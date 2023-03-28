@@ -1,7 +1,6 @@
 package com.opentext.otmm.sc.api.beans;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
