@@ -32,7 +32,7 @@ class TestOTMMAPICollections extends TestOTMMAPI {
 
 	@Test
 	void retrieveAllAssetsOfACollection() {
-		List<OTMMAsset> assets = wrapper.retrieveAllAssetsOfACollection(sessionId, "37565d42b090cae4774605bd1c9dd85c75063ad5");
+		List<OTMMAsset> assets = wrapper.retrieveAllAssetsOfACollection(sessionId, prop.getProperty("collection.id.sample"));
 		assertNotNull(assets);
 		assertTrue(assets.size() > 0);
 	}	
