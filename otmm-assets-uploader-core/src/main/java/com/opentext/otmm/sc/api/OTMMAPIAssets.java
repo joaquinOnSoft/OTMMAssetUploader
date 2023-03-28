@@ -16,7 +16,7 @@ public class OTMMAPIAssets extends OTMMAPI {
 	
 	//private static final String TEMPLATE_STOCK_IMAGE = "01acfc5f70f34ef84711e0b83161b716e147c87b";
 	private static final String ARTESIA_MODEL_DEFAULT = "ARTESIA.MODEL.DEFAULT";
-	private static final String CUSTOM_MODEL_STOCK_VIDEO = "CUSTOM.MODEL.STOCK VIDEO";
+	//private static final String CUSTOM_MODEL_STOCK_VIDEO = "CUSTOM.MODEL.STOCK VIDEO";
 	
 	//Default Asset Policy
 	private static final String DEFAULT_ASSET_POLICY = "2";

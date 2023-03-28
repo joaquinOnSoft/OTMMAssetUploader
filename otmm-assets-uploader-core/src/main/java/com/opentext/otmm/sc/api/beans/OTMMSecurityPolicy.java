@@ -10,7 +10,8 @@ import com.opentext.otmm.sc.api.util.DateUtil;
 import com.opentext.otmm.sc.api.util.HashUtil;
 
 public class OTMMSecurityPolicy {
-	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
+	//private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
+	private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	
 	private Date createDate;
 	private String description;
