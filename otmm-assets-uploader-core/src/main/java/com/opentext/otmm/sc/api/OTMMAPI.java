@@ -131,10 +131,15 @@ public abstract class OTMMAPI {
 		return result;
 	}
 
+	protected String post(String method, List<NameValuePair> headers) {
+		return post(method, headers, null);
+	}
+	
 	/**
 	 * HTTP POST request
 	 * @param method - OTMM API method name
-	 * @param params - Key/value
+	 * @param headers - Key/value headers
+	 * @param entities - Key/value entities
 	 * @return
 	 * @see https://www.baeldung.com/httpclient-post-http-request
 	 */

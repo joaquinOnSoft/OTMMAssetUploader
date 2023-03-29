@@ -8,9 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMFolder;
 
 public class OTMMAPIFolders extends OTMMAPI {
 
+	private static final String POST__CREATE_A_FOLDER = "folders/{id}";
 	private static final String GET__RETRIEVE_ALL_ROOT_FOLDERS = "folders/rootfolders";
 	private static final String GET__RETRIEVE_ALL_CHILDREN_OF_A_FOLDER = "folders/{id}/children";
 
@@ -35,8 +37,35 @@ public class OTMMAPIFolders extends OTMMAPI {
 	 * <strong>URL</strong>: /v6/folders/{id}
 	 * @param sessionId - Session identifier (provided by `sessions` method)
 	 */
-	public void createAFolder(String sessionId, String folderId) {
+	public OTMMFolder createAFolder(String sessionId, String parentFolderId) {
+		OTMMFolder folder = null;
 		
+		String response = post(POST__CREATE_A_FOLDER.replace("{id}", parentFolderId), getDefaultHeaders(sessionId));
+		
+		if(response != null) {
+			try {
+				JSONObject json = new JSONObject(response);
+				if (json != null) {
+			    	//TODO add all the properties to the OTMMFolder object
+
+					JSONObject metadata = json.getJSONObject("folder_resource")
+						.getJSONObject("folder")
+						.getJSONObject("asset_content_info")
+						.getJSONObject("master_content_info")
+						.getJSONObject("metadata");
+					
+					if(metadata != null) {
+						folder = new OTMMFolder(metadata.getString("id"), 
+								metadata.getString("name"),
+								metadata.getString("type"));
+					}
+				}
+			} catch (JSONException e) {
+				logger.error("/otmmapi/v" + version + "/folders/{id} (Response to JSON conversion) ", e);
+			}
+		}
+		
+		return folder;
 	}
 	
 	/**
