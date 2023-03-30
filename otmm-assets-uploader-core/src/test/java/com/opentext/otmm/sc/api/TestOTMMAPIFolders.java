@@ -64,6 +64,7 @@ class TestOTMMAPIFolders extends TestOTMMAPI {
 				
 		folder = wrapper.createAFolder(sessionId, prop.getProperty("folder.id.my.folders.sample"), folder);
 		assertNotNull(folder);
+		assertNotNull(folder.getId());
 	}
 	
 	

@@ -18,14 +18,19 @@ public class OTMMFolder {
 	private List<OTMMMetadataElement> metadataElements;
 	private String metadataModelId;
 
-	public OTMMFolder(String id, String name) {
-		this(id, name, null);
+	public OTMMFolder(String name) {
+		this(name, null, null);
 	}
+	
+	public OTMMFolder(String name, String type) {
+		this(name, type, null);
+	}
+	
 
-	public OTMMFolder(String id, String name, String type) {
+	public OTMMFolder(String name, String type, String id) {
 		this.id = id;
 		this.name = name;
-		this.containerType = type;
+		this.type = type;
 		securityPolicies = new LinkedList<Integer>();
 		metadataElements = new LinkedList<OTMMMetadataElement>();
 	}
@@ -96,6 +101,7 @@ public class OTMMFolder {
 	
 	public String toJSON() {
 		JSONObject jsonObj = new JSONObject();
+		JSONObject folderResource = new JSONObject();
 		JSONObject folder = new JSONObject();
 		
 		JSONArray policies = new JSONArray();
@@ -132,14 +138,14 @@ public class OTMMFolder {
 			metadataElementList.put(metadataElementObj);
 		}		
 		
-		
 		metadata.put("metadata_element_list", metadataElementList);
 		
 		folder.put("metadata", metadata);
-		
 		folder.put("metadata_model_id", metadataModelId);
 		
-		jsonObj.put("folder_resource", folder);
+		folderResource.put("folder", folder);
+		
+		jsonObj.put("folder_resource", folderResource);
 		
 		return jsonObj.toString();
 	}

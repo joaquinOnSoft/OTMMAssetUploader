@@ -4,8 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +51,9 @@ public class OTMMAPIFolders extends OTMMAPI {
 			entity = new StringEntity(folder.toJSON(), ContentType.APPLICATION_JSON);
 
 			if (entity != null) {
+				List<NameValuePair> headers = getDefaultHeaders(sessionId);
+				headers.add(new BasicNameValuePair("Content-Type", "application/json; charset=UTF-8"));
+				
 				List<HttpEntity> entities = new LinkedList<HttpEntity>();
 				entities.add(entity);
 
@@ -62,14 +67,11 @@ public class OTMMAPIFolders extends OTMMAPI {
 						if (json != null) {
 							// TODO add all the properties to the OTMMFolder object
 
-							JSONObject metadata = json.getJSONObject("folder_resource").getJSONObject("folder")
-									.getJSONObject("asset_content_info").getJSONObject("master_content_info")
-									.getJSONObject("metadata");
+							String assetId = json.getJSONObject("folder_resource")
+									.getJSONObject("folder")
+									.getString("asset_id");
 
-							if (metadata != null) {
-								folder = new OTMMFolder(metadata.getString("id"), metadata.getString("name"),
-										metadata.getString("type"));
-							}
+							folder.setId(assetId);
 						}
 					} catch (JSONException e) {
 						logger.error("/otmmapi/v" + version + "/folders/{id} (Response to JSON conversion) ", e);

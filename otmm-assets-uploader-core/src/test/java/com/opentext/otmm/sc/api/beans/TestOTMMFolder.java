@@ -4,61 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.opentext.otmm.sc.api.OTMMAPIFolders;
 import com.opentext.otmm.sc.api.OTMMMetadataElement;
 
 public class TestOTMMFolder {
 	private static final String FOLDER_JSON  = 
-			"{\n" +
-			"    \"folder_resource\": {\n" +
-			"        \"folder\": {\n" +
-			"            \"name\": \"Test2\",\n" +
-			"            \"container_type_id\": \"FNMT.FOLDER.MAESTRO\",\n" +
-			"            \"security_policy_list\": [{\n" +
-			"                    \"id\": 5\n" +
-			"                }, {\n" +
-			"                    \"id\": 2\n" +
-			"                }\n" +
-			"            ],\n" +
-			"            \"metadata\": {\n" +
-			"                \"metadata_element_list\": [{\n" +
-			"                        \"id\": \"FNMT.FIELD.TIPO PRODUCTO\",\n" +
-			"                        \"type\": \"com.artesia.metadata.MetadataField\",\n" +
-			"                        \"value\": {\n" +
-			"                            \"value\": {\n" +
-			"                                \"type\": \"string\",\n" +
-			"                                \"value\": \"tp07\"\n" +
-			"                            }\n" +
-			"                        }\n" +
-			"                    }, {\n" +
-			"                        \"id\": \"FNMT.FIELD.ID\",\n" +
-			"                        \"type\": \"com.artesia.metadata.MetadataField\",\n" +
-			"                        \"value\": {\n" +
-			"                            \"value\": {\n" +
-			"                                \"type\": \"string\",\n" +
-			"                                \"value\": \"12345\"\n" +
-			"                            }\n" +
-			"                        }\n" +
-			"                    }, {\n" +
-			"                        \"id\": \"FNMT.FIELD.NOMBRE\",\n" +
-			"                        \"type\": \"com.artesia.metadata.MetadataField\",\n" +
-			"                        \"value\": {\n" +
-			"                            \"value\": {\n" +
-			"                                \"type\": \"string\",\n" +
-			"                                \"value\": \"Test-metadato\"\n" +
-			"                            }\n" +
-			"                        }\n" +
-			"                    }\n" +
-			"                ]\n" +
-			"            },\n" +
-			"            \"metadata_model_id\": \"FNMT.MODEL.MAESTRO\"\n" +
-			"        }\n" +
-			"    }\n" +
-			"}";
+			"{\"folder_resource\":{\"folder\":{\"metadata\":{\"metadata_element_list\":[{\"id\":\"FNMT.FIELD.TIPO PRODUCTO\",\"type\":\"com.artesia.metadata.MetadataField\",\"value\":{\"value\":{\"type\":\"string\",\"value\":\"tp07\"}}},{\"id\":\"FNMT.FIELD.ID\",\"type\":\"com.artesia.metadata.MetadataField\",\"value\":{\"value\":{\"type\":\"string\",\"value\":\"12345\"}}},{\"id\":\"FNMT.FIELD.NOMBRE\",\"type\":\"com.artesia.metadata.MetadataField\",\"value\":{\"value\":{\"type\":\"string\",\"value\":\"Test-metadato\"}}}]},\"container_type_id\":\"FNMT.FOLDER.MAESTRO\",\"name\":\"Test2\",\"metadata_model_id\":\"FNMT.MODEL.MAESTRO\",\"security_policy_list\":[{\"id\":2},{\"id\":5}]}}}";
 	
 	@Test
 	public void toJSON() {
-		OTMMFolder folder = new OTMMFolder("123456", "Test2");
+		OTMMFolder folder = new OTMMFolder("Test2");
 		folder.setContainerType("FNMT.FOLDER.MAESTRO");
 		folder.addSecurityPolicie(2);
 		folder.addSecurityPolicie(5);
