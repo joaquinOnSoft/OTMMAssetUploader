@@ -10,9 +10,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opentext.otmm.sc.api.beans.OTMMAsset;
+import com.opentext.otmm.sc.api.beans.OTMMFolder;
+import com.opentext.otmm.sc.api.util.DateUtil;
 
 class TestOTMMAPIFolders extends TestOTMMAPI {
 
+	private static final int DEFAULT_ASSET_POLICY = 2;
+	private static final String ARTESIA_BASIC_FOLDER = "ARTESIA.BASIC.FOLDER";
+	
+	private static final String ARTESIA_FIELD_ASSET_DESCRIPTION = "ARTESIA.FIELD.ASSET DESCRIPTION";
+	private static final String METADATA_FIELD = "com.artesia.metadata.MetadataField";
+	
 	private static OTMMAPIFolders wrapper = null;
 	
 	@BeforeEach
@@ -43,6 +51,21 @@ class TestOTMMAPIFolders extends TestOTMMAPI {
 		assertNotNull(url);
 		assertTrue(url.endsWith("/otmmapi/v6/sessions"));
 	}	
+	
+	@Test
+	void createAFolder() {
+		OTMMFolder folder = new OTMMFolder(null, "Test" + DateUtil.nowToUTC());
+		folder.setContainerType(ARTESIA_BASIC_FOLDER);
+		folder.addSecurityPolicie(DEFAULT_ASSET_POLICY);
+		
+		OTMMMetadataElement metatadaElement = new OTMMMetadataElement(ARTESIA_FIELD_ASSET_DESCRIPTION, METADATA_FIELD);
+		metatadaElement.addValue("string",  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ");
+		folder.addMetadataElement(metatadaElement);
+				
+		folder = wrapper.createAFolder(sessionId, prop.getProperty("folder.id.my.folders.sample"), folder);
+		assertNotNull(folder);
+	}
+	
 	
 	@Test 
 	void retrieveAllRootFolders(){
